@@ -18,14 +18,14 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential git
 
-        # Clone the GCC toolchain repository
-        git clone https://github.com/Skyrimus/arm-eabi-4.8-google-mt6580 gcc
+        # Clone the GCC toolchain repository if not already present
+        [ -d "gcc" ] || git clone https://github.com/Skyrimus/arm-eabi-4.8-google-mt6580 gcc
 
         # Navigate back to the main directory
         cd ..
 
-        # Clone the LK (Little Kernel) repository
-        git clone https://github.com/Ultimate-1/lk_mt6580.git
+        # Clone the LK (Little Kernel) repository if not already present
+        [ -d "lk_mt6580" ] || git clone https://github.com/Ultimate-1/lk_mt6580.git
         cd lk_mt6580
 
         # Set up environment variables
