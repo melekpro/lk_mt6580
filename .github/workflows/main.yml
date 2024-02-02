@@ -30,6 +30,7 @@ jobs:
 
         # Set up environment variables
         export TOOLCHAIN_PREFIX=${PWD}/../gcc/bin/arm-eabi-
+        echo "export PATH=\$PATH:${TOOLCHAIN_PREFIX}" >> $GITHUB_ENV
 
     - name: Build LK
       run: |
