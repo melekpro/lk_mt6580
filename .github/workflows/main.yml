@@ -24,13 +24,16 @@ jobs:
     - name: Navigate to main directory
       run: cd ..
 
+    - name: Create LK directory
+      run: mkdir lk_mt6580
+
     - name: Clone LK repository
       run: git clone https://github.com/Ultimate-1/lk_mt6580.git
       working-directory: lk_mt6580
 
     - name: Set up environment variables
       run: |
-        export TOOLCHAIN_PREFIX=${PWD}/gcc/bin/arm-eabi-
+        export TOOLCHAIN_PREFIX=${PWD}/../gcc/bin/arm-eabi-
 
     - name: Build LK for MT6580
       run: make hexing6580_weg_l
