@@ -1,39 +1,17 @@
-name: Build LK for MT6580
+#!/bin/bash
 
-on:
-  push:
-    branches:
-      - master
+# Clone the GCC toolchain repository
+git clone https://github.com/Skyrimus/arm-eabi-4.8-google-mt6580 gcc
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# Navigate back to the main directory
+cd ..
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+# Clone the LK (Little Kernel) repository
+git clone https://github.com/Ultimate-1/lk_mt6580.git
+cd lk_mt6580
 
-    - name: Set up environment
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install -y git
+# Set up environment variables
+export TOOLCHAIN_PREFIX=${PWD}/../gcc/bin/arm-eabi-
 
-    - name: Clone GCC toolchain repository
-      run: git clone https://github.com/Skyrimus/arm-eabi-4.8-google-mt6580 gcc
-
-    - name: Navigate to main directory
-      run: cd ..
-
-    - name: Create LK directory
-      run: mkdir lk_mt6580
-
-    - name: Clone LK repository
-      run: git clone https://github.com/Ultimate-1/lk_mt6580.git
-      working-directory: lk_mt6580
-
-    - name: Set up environment variables
-      run: |
-        export TOOLCHAIN_PREFIX=${PWD}/../gcc/bin/arm-eabi-
-
-    - name: Build LK for MT6580
-      run: make hexing6580_weg_l
+# Build LK for your target
+make hexing6580_weg_l
