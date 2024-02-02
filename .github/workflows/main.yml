@@ -21,6 +21,9 @@ jobs:
         # Clone the GCC toolchain repository if not already present
         [ -d "gcc" ] || git clone https://github.com/Skyrimus/arm-eabi-4.8-google-mt6580 gcc
 
+        # Add the toolchain to PATH
+        echo "export PATH=\$PATH:${PWD}/gcc/bin" >> $GITHUB_ENV
+
         # Navigate back to the main directory
         cd ..
 
@@ -28,10 +31,7 @@ jobs:
         [ -d "lk_mt6580" ] || git clone https://github.com/Ultimate-1/lk_mt6580.git
         cd lk_mt6580
 
-        # Set up environment variables
-        export TOOLCHAIN_PREFIX=${PWD}/../gcc/bin/arm-eabi-
-        echo "export PATH=\$PATH:${TOOLCHAIN_PREFIX}" >> $GITHUB_ENV
-
     - name: Build LK
       run: |
+        export TOOLCHAIN_PREFIX=${PWD}/../gcc/bin/arm-eabi-
         make hexing6580_weg_l
